@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next dev",
-    "build": "next build -p 8080",
-    "start": "next start"
+    "build": "next build",
+    "start": "next start -p 8080"
   },
   "author": "",
   "license": "ISC",
