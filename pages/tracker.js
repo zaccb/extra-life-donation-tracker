@@ -4,8 +4,7 @@ import { getUserInfo } from 'extra-life-api';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-// const participantID = 416085;
-const pollingRate = 30000;
+const pollingRate = 120000;
 
 const Tracker = () => {
     const router = useRouter();
