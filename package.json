@@ -1,12 +1,12 @@
 {
   "name": "extra-life-helper",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build -p 8080",
     "start": "next start"
   },
   "author": "",
