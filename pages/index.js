@@ -15,8 +15,8 @@ const HomePage = () => {
         return showCombinedGoal || showRaised || showGoal || showDonationCount;
     }
 
-    // const webRoot = 'https://extra-life-widget.azurewebsites.net/';
-    const webRoot = 'http://localhost:3000/'
+    const webRoot = 'https://extra-life-widget.azurewebsites.net/';
+    // const webRoot = 'http://localhost:3000/'
 
     const getUrl = () => {
        let urlStr = `${webRoot}tracker`
