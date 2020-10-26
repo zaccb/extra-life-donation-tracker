@@ -16,7 +16,7 @@ const HomePage = () => {
     }
 
     const webRoot = 'https://extra-life-widget.azurewebsites.net/';
-    // const webRoot = 'http://localhost:3000'
+    // const webRoot = 'http://localhost:3000/'
 
     const getUrl = () => {
        let urlStr = `${webRoot}tracker/`
@@ -38,7 +38,7 @@ const HomePage = () => {
         if (regExp.test(userValue)) {
             setPid(userValue)
         } else {
-            setPid(null)
+            setPid('')
         }
     }
 
@@ -48,7 +48,7 @@ const HomePage = () => {
             <caption>{ packageVer }</caption>
             <blockquote>
                 <div>Made with ❤️ by <b>Team Gipsy Danger Zone</b>.</div>
-                <div>Consider making a donation to our <a target="_blank" href="https://www.extra-life.org/index.cfm?fuseaction=donorDrive.team&teamID=50815">team page here. It's for the kids.</a></div>
+                <div>If you found this app helpful, consider making a donation to our <a target="_blank" href="https://www.extra-life.org/index.cfm?fuseaction=donorDrive.team&teamID=50815">team page here. It's for the kids.</a></div>
             </blockquote>
 
             <h3>Customize your data display widget</h3>

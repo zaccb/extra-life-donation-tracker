@@ -24,6 +24,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: "Open Sans";
+    src: url("fonts/OpenSans-BoldItalic.ttf") format("truetype");
+    font-weight: bold;
+    font-style: italic;
+}
+
 $font-default: "Open Sans", 'Segoe UI', Tahoma, Verdana, sans-serif;
 
 body {
