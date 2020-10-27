@@ -32,10 +32,26 @@
 }
 
 $font-default: "Open Sans", 'Segoe UI', Tahoma, Verdana, sans-serif;
+$color-el-brand-dark: #1a4c6d;
+$color-el-brand-light: #26c2eb;
 
 body {
     font-family: $font-default;
     padding: 20px;
+    font-size: 14px;
+    color: #111111;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+h2, h3, h4, h5, h6 {
+    color: $color-el-brand-dark;
+}
+
+p {
+    margin-top: 0;
 }
 
 blockquote {
@@ -45,9 +61,13 @@ blockquote {
     padding: 20px;
     font-style: italic;
     color: #666666;
+
+    + pre {
+        display: none;
+    }
 }
 
-caption {
+.caption {
     color: #555555;
     font-size: 12px;
     position: absolute;
@@ -71,13 +91,13 @@ form {
 
 label {
     margin-right: 10px;
-    // outline: 1px solid red;
     line-height: 35px;
     cursor: pointer;
 }
 
 input {
-    font-size: 16px;
+    font-size: 14px;
+    line-height: 14px;
 }
 
 .data-output {
@@ -86,10 +106,6 @@ input {
 
 .branded {
     font-family: 'ELFont';
-    // color: white;
-    // font-size: 90px;
-    // letter-spacing: 8px;
-    // text-shadow: 2px 2px 6px rgba(0,0,0,0.29);
 }
 
 .disabled {
@@ -109,12 +125,74 @@ input {
     background-color: #DBEFDC;
     font-family: monospace;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: flex-start;
 
     a {
         font-family: $font-default;
         font-size: 12px;
-        margin-left: 20px;
         display: inline-block;
+        margin-top: 10px;
     }
+}
+
+
+button {
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 7px;
+    color: white;
+    background-color: $color-el-brand-dark;
+    margin-left: 10px;
+
+    &:focus,
+    &:active {
+        outline: none;
+    }
+}
+
+.css-preview-wrapper {
+    .header {
+        display: flex;
+        align-items: center;
+    }
+
+
+    .css-preview {
+        transition: max-height 250ms ease-in-out;
+        max-height: 1000px;
+        overflow: hidden;
+    }
+
+    &.collapsed {
+        .css-preview {
+            max-height: 0;
+        }
+    }
+}
+
+.css-preview {
+    pre {
+        border: 1px solid #444444;
+        padding-bottom: 0;
+    }
+}
+
+.form-success-message {
+    color: green;
+    font-size: 14px;
+    line-height: 14px;
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.form-header {
+    display: flex;
+    align-items: center;
 }

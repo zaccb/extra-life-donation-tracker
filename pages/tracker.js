@@ -14,18 +14,20 @@ const Tracker = () => {
     const [ adjustedPollingRate, setAdjustedPollingRate ] = useState(0);
 
     const updateUserInfo = () => {
-        getUserInfo(pid).then(response => {
-            console.log(response);
-            setPid(router.query.pid)
-            setUserInfo(response);
-            setThrottle(true)
-            setTimeout(() => {
-                setThrottle(false);
-                if (adjustedPollingRate !== pollingRate) {
-                    setAdjustedPollingRate(pollingRate);
-                }
-            }, adjustedPollingRate )
-        });
+        getUserInfo(pid)
+            .then(response => {
+                console.log(response);
+                setPid(router.query.pid)
+                setUserInfo(response);
+                setThrottle(true)
+                setTimeout(() => {
+                    setThrottle(false);
+                    if (adjustedPollingRate !== pollingRate) {
+                        setAdjustedPollingRate(pollingRate);
+                    }
+                }, adjustedPollingRate )
+            })
+            .catch(error => {});
     }
 
     useEffect(() => {
@@ -42,9 +44,11 @@ const Tracker = () => {
             {
                 router.query.showCombinedGoal && (
                     <>
-                        <span className="raised">${userInfo.sumDonations}</span>
-                        <span>/</span>
-                        <span className="goal">${userInfo.fundraisingGoal}</span>
+                        <div className="combined-goal">
+                            <span className="combined-raised">${userInfo.sumDonations}</span>
+                            <span>/</span>
+                            <span className="combined-goal">${userInfo.fundraisingGoal}</span>
+                        </div>
                     </>
                 )
             }
