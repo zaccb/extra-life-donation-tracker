@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { getUserInfo } from 'extra-life-api';
 
 import Prism from 'prismjs';
-import { strict } from 'assert';
 
 const packageVer = '0.0.0';
 
@@ -16,8 +15,9 @@ const FormBuilder = () => {
     const [ hideBranding, setHideBranding ] = useState(false);
     const [ showCss, setShowCss ] = useState(false);
 
-    const updateUserInfo = () => {
-        getUserInfo(pid).then(response => {
+    const updateUserInfo = userValue => {
+        const id = userValue ? userValue : pid;
+        getUserInfo(id).then(response => {
             setUserInfo(response);
             console.log(response);
         });
@@ -27,8 +27,7 @@ const FormBuilder = () => {
         return showCombinedGoal || showRaised || showGoal || showDonationCount;
     }
 
-    const webRoot = 'https://extra-life-widget.azurewebsites.net/';
-    // const webRoot = 'http://localhost:3000/'
+    const webRoot = process.env.ENV === 'prod' ? 'https://extra-life-widget.azurewebsites.net/' : 'http://localhost:3000/';
 
     const getUrl = () => {
        let urlStr = `${webRoot}tracker`
@@ -45,17 +44,13 @@ const FormBuilder = () => {
        }
     }
 
-    const sanitizePid = userValue => {
-        const regExp = /^\d+$/;
-        if (regExp.test(userValue)) {
-            setPid(userValue);
+    const registerPid = (userValue) => {
+        const regExp = new RegExp(/^\d+$/);
+        if (regExp.test(userValue) && userValue.length === 6) {
+            updateUserInfo(userValue);
         } else {
-            setPid('')
+            setUserInfo({})
         }
-    }
-
-    const registerPid = () => {
-        (pid && pid.length === 6) && updateUserInfo(pid);
     }
 
     const getCssComment = (selector, scope) => {
@@ -75,6 +70,11 @@ const FormBuilder = () => {
         setShowCss(!showCss);
     }
 
+    const updatePid = userValue => {
+        registerPid(userValue)
+        setPid(userValue)
+    }
+
     const clearForm = () => {
         setPid('');
         setUserInfo({});
@@ -83,7 +83,7 @@ const FormBuilder = () => {
         setShowGoal(false);
         setShowDonationCount(false);
         setHideBranding(false);
-        showCss(false); 
+        setShowCss(false); 
     }
 
     useEffect(() => {
@@ -108,7 +108,7 @@ const FormBuilder = () => {
                 <form>
                     <div className="non-interactive">
                         <label htmlFor="pid">Your participant ID</label>
-                        <input type="text" id="pid" value={ pid } onChangeCapture={ evt => sanitizePid(evt.target.value) } onBlur={ registerPid }/>
+                        <input type="text" id="pid" value={ pid } onChangeCapture={ evt => updatePid(evt.target.value) }/>
                         {
                             (pid && userInfo && userInfo.displayName) && (
                                 <p className="form-success-message">Participant found! Showing data for: { userInfo.displayName }</p>
@@ -148,7 +148,7 @@ const FormBuilder = () => {
                             <h3>Your custom URL</h3>
                             <p>Copy and paste this URL into a <a href="https://medium.com/@plsoid/how-to-add-browser-source-in-obs-streamlabs-obs-twitch-studio-xsplit-50a698080497">browser source in your streaming software.</a>Instructions for adding styling (i.e. customizing CSS) are below.</p>
                             {
-                                !pid && (
+                                !userInfo.displayName && (
                                     <blockquote className="warn">Enter a valid participant ID to generate a custom URL.</blockquote>
                                 )
                             }
@@ -165,7 +165,7 @@ const FormBuilder = () => {
                 }
 
                 {
-                    (dataSelected() && pid) && (
+                    (dataSelected() && pid && userInfo.displayName) && (
                         <div className="preview">
                             <h3>What will be displayed on my stream?</h3>
                             <p>Below is what your will be shown by the browser source in your streaming software.</p>
@@ -205,7 +205,7 @@ const FormBuilder = () => {
                         <div className="css-preview">
                             <p>Copy and paste the below CSS into the <b>Custom CSS</b> field of the browser source in your OBS client. Replace the commented lines (e.g. "/* comment */") with actual CSS rules. Example CSS rules are provided for changing the font size and font color, for example, but all CSS rules are valid.</p>
                             {
-                                !dataSelected() && (
+                                (!dataSelected() || !userInfo.displayName) && (
                                     <blockquote className="warn">Example CSS will display once the widget is customized.</blockquote>
                                 )
                             }

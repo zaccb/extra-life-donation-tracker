@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 
 const DynamicComponentWithNoSSR = dynamic(
     () => import('../components/FormBuilder'),
@@ -7,7 +8,12 @@ const DynamicComponentWithNoSSR = dynamic(
 
 const HomePage = () => {
     return (
-        <DynamicComponentWithNoSSR />
+        <>
+            <Head>
+                <link rel="shortcut icon" href="/favicon.ico" />
+            </Head>
+            <DynamicComponentWithNoSSR />
+        </>
     )
 }
 

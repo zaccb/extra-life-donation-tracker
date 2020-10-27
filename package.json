@@ -6,12 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next dev",
-    "build": "next build",
+    "build": "ENV=prod next build",
     "start": "next start -p 8080"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "extra-life-api": "^6.0.1",
     "next": "^9.5.5",
     "prismjs": "^1.22.0",
