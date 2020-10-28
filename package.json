@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "comma-number": "^2.0.1",
     "cross-env": "^7.0.2",
     "extra-life-api": "^6.0.1",
     "next": "^9.5.5",

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getUserInfo } from 'extra-life-api';
-
 import Prism from 'prismjs';
+
+import UserInfoDisplay from './UserInfoDisplay';
 
 const packageVer = '0.0.0';
 
@@ -109,7 +110,7 @@ const FormBuilder = () => {
                 <form>
                     <div className="non-interactive">
                         <label htmlFor="pid">Your participant ID</label>
-                        <input type="text" id="pid" value={ pid } onChangeCapture={ evt => updatePid(evt.target.value) }/>
+                        <input type="text" id="pid" value={ pid } onChange={ evt => updatePid(evt.target.value) }/>
                         {
                             (pid && userInfo && userInfo.displayName) && (
                                 <p className="form-success-message">Participant found! Showing data for: { userInfo.displayName }</p>
@@ -170,28 +171,13 @@ const FormBuilder = () => {
                         <div className="preview">
                             <h3>What will be displayed on my stream?</h3>
                             <p>Below is what your will be shown by the browser source in your streaming software.</p>
-                            <div className={ hideBranding ? 'data-output' : 'data-output branded' }>
-                                {
-                                    showCombinedGoal && (
-                                        <div>${userInfo.sumDonations}/${userInfo.fundraisingGoal}</div>
-                                    )
-                                }
-                                {
-                                    showRaised && (
-                                        <div>${userInfo.sumDonations}</div>
-                                    )
-                                }
-                                {
-                                    showGoal && (
-                                        <div>${userInfo.fundraisingGoal}</div>
-                                    )
-                                }
-                                {
-                                    showDonationCount && (
-                                        <div>{userInfo.numDonations}</div>
-                                    )
-                                }
-                            </div>
+                            <UserInfoDisplay 
+                                hideBranding={ hideBranding } 
+                                showCombinedGoal={ showCombinedGoal }
+                                showRaised={ showRaised }
+                                showGoal={ showGoal }
+                                showDonationCount={ showDonationCount }
+                                userInfo={ userInfo } />
                         </div>
                     )
                 }

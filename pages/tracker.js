@@ -1,8 +1,9 @@
 
 import { getUserInfo } from 'extra-life-api';
-
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+
+import UserInfoDisplay from '../components/UserInfoDisplay';
 
 const pollingRate = 120000;
 
@@ -12,6 +13,11 @@ const Tracker = () => {
     const [ userInfo, setUserInfo ] = useState({});
     const [ throttle, setThrottle ] = useState(false);
     const [ adjustedPollingRate, setAdjustedPollingRate ] = useState(0);
+    // const [ showCombinedGoal, setCombinedGoal ] = useState(router.query.showCombinedGoal);
+    // const [ showRaised, setShowRaised ] = useState(router.query.showRaised)
+    // const [ showGoal, setShowGoal ] = useState(router.query.showGoal);
+    // const [ showDonationCount, setShowDonationCount ] = useState(router.query.showDonationCount);
+    // const [ hideBranding, setHideBranding ] = useState(router.query.hideBranding);
 
     const updateUserInfo = () => {
         getUserInfo(pid)
@@ -40,34 +46,14 @@ const Tracker = () => {
     }, [ throttle ]);
 
     return (
-        <div key={ pid } className={ router.query.hideBranding ? 'data-output' : 'data-output branded' }>
-            {
-                router.query.showCombinedGoal && (
-                    <>
-                        <div className="combined-goal">
-                            <span className="combined-raised">${userInfo.sumDonations}</span>
-                            <span>/</span>
-                            <span className="combined-goal">${userInfo.fundraisingGoal}</span>
-                        </div>
-                    </>
-                )
-            }
-            {
-                router.query.showRaised && (
-                    <div className="raised">${userInfo.sumDonations}</div>
-                )
-            }
-            {
-                router.query.showGoal && (
-                    <div className="goal">${userInfo.fundraisingGoal}</div>
-                )
-            }
-            {
-                router.query.showDonationCount && (
-                    <div className="count">{userInfo.numDonations}</div>
-                )
-            }
-        </div>
+        <UserInfoDisplay 
+            hideBranding={ router.query.hideBranding } 
+            showCombinedGoal={ router.query.showCombinedGoal }
+            showRaised={ router.query.showRaised }
+            showGoal={ router.query.showGoal }
+            showDonationCount={ router.query.showDonationCount }
+            userInfo={ userInfo }
+        />
     )
 }
 
