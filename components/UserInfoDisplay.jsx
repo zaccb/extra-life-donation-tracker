@@ -7,22 +7,22 @@ const UserInfoDisplay = props => {
         <div className={ hideBranding ? 'data-output' : 'data-output branded' }>
             {
                 showCombinedGoal && (
-                    <div>${commaNumber(userInfo.sumDonations)} / ${commaNumber(userInfo.fundraisingGoal)}</div>
+                    <div className="combined-goal">${commaNumber(userInfo.sumDonations)} / ${commaNumber(userInfo.fundraisingGoal)}</div>
                 )
             }
             {
                 showRaised && (
-                    <div>${commaNumber(userInfo.sumDonations)}</div>
+                    <div className="raised">${commaNumber(userInfo.sumDonations)}</div>
                 )
             }
             {
                 showGoal && (
-                    <div>${commaNumber(userInfo.fundraisingGoal)}</div>
+                    <div className="goal">${commaNumber(userInfo.fundraisingGoal)}</div>
                 )
             }
             {
                 showDonationCount && (
-                    <div>{commaNumber(userInfo.numDonations)}</div>
+                    <div className="count">{commaNumber(userInfo.numDonations)}</div>
                 )
             }
         </div>
